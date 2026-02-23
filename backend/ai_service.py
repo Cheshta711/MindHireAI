@@ -9,12 +9,17 @@ API_KEY = os.environ.get("EMERGENT_LLM_KEY")
 class AIService:
     def __init__(self):
         self.api_key = API_KEY
+        # Don't fail on startup, just log the issue
         if not self.api_key:
-            raise ValueError("EMERGENT_LLM_KEY environment variable is not set")
+            print("Warning: EMERGENT_LLM_KEY environment variable is not set. AI features will use fallback responses.")
     
     async def generate_question(self, question_number: int, previous_questions: List[str] = None) -> str:
         """Generate a Computer Science interview question using GPT-4o"""
         try:
+            # If no API key, use fallback immediately
+            if not self.api_key:
+                raise Exception("No API key available")
+                
             system_message = "You are an expert technical interviewer specializing in Computer Science. Generate challenging but fair interview questions covering topics like algorithms, data structures, system design, databases, and programming concepts."
             
             previous_context = ""
@@ -34,6 +39,7 @@ class AIService:
             
             return response.strip()
         except Exception as e:
+            print(f"AI question generation failed: {str(e)}. Using fallback question.")
             # Fallback to a predefined question if AI fails
             fallback_questions = [
                 "Explain the difference between a stack and a queue data structure. Provide examples of when you would use each.",
