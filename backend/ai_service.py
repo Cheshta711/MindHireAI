@@ -53,6 +53,10 @@ class AIService:
     async def evaluate_answer(self, question: str, answer: str) -> Dict:
         """Evaluate an answer using AI for semantic analysis"""
         try:
+            # If no API key, use fallback immediately  
+            if not self.api_key:
+                raise Exception("No API key available")
+                
             system_message = """You are an expert technical interviewer and psychologist. Evaluate candidate answers for:
 1. Technical accuracy and depth
 2. Communication clarity
@@ -101,6 +105,7 @@ Provide a detailed evaluation in JSON format."""
                     "key_points": ["Response provided"]
                 }
         except Exception as e:
+            print(f"AI answer evaluation failed: {str(e)}. Using fallback evaluation.")
             # Fallback evaluation if AI service fails
             evaluation = {
                 "technical_quality": 70,
