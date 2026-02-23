@@ -46,7 +46,8 @@ class AIService:
     
     async def evaluate_answer(self, question: str, answer: str) -> Dict:
         """Evaluate an answer using AI for semantic analysis"""
-        system_message = """You are an expert technical interviewer and psychologist. Evaluate candidate answers for:
+        try:
+            system_message = """You are an expert technical interviewer and psychologist. Evaluate candidate answers for:
 1. Technical accuracy and depth
 2. Communication clarity
 3. Confidence and emotional tone
@@ -59,32 +60,42 @@ Provide your evaluation in JSON format with these fields:
 - sentiment (positive/neutral/negative): Overall emotional tone
 - stress_indicators (list): Words or phrases indicating stress, hesitation, or uncertainty
 - key_points (list): Main points mentioned in the answer"""
-        
-        chat = LlmChat(
-            api_key=self.api_key,
-            session_id="answer_evaluation",
-            system_message=system_message
-        ).with_model("openai", "gpt-4o")
-        
-        prompt = f"""Question: {question}
+            
+            chat = LlmChat(
+                api_key=self.api_key,
+                session_id="answer_evaluation",
+                system_message=system_message
+            ).with_model("openai", "gpt-4o")
+            
+            prompt = f"""Question: {question}
 
 Candidate's Answer: {answer}
 
 Provide a detailed evaluation in JSON format."""
-        
-        user_message = UserMessage(text=prompt)
-        response = await chat.send_message(user_message)
-        
-        # Parse JSON response
-        try:
-            # Extract JSON from response if it contains markdown code blocks
-            json_match = re.search(r'```(?:json)?\s*({.*?})\s*```', response, re.DOTALL)
-            if json_match:
-                evaluation = json.loads(json_match.group(1))
-            else:
-                evaluation = json.loads(response)
-        except:
-            # Fallback to basic evaluation if parsing fails
+            
+            user_message = UserMessage(text=prompt)
+            response = await chat.send_message(user_message)
+            
+            # Parse JSON response
+            try:
+                # Extract JSON from response if it contains markdown code blocks
+                json_match = re.search(r'```(?:json)?\s*({.*?})\s*```', response, re.DOTALL)
+                if json_match:
+                    evaluation = json.loads(json_match.group(1))
+                else:
+                    evaluation = json.loads(response)
+            except:
+                # Fallback to basic evaluation if parsing fails
+                evaluation = {
+                    "technical_quality": 70,
+                    "communication_quality": 75,
+                    "confidence_level": 65,
+                    "sentiment": "neutral",
+                    "stress_indicators": [],
+                    "key_points": ["Response provided"]
+                }
+        except Exception as e:
+            # Fallback evaluation if AI service fails
             evaluation = {
                 "technical_quality": 70,
                 "communication_quality": 75,
