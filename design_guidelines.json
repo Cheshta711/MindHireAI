@@ -1,0 +1,171 @@
+{
+  "project_name": "MindHire AI",
+  "design_philosophy": {
+    "identity": "E1: The Anti-AI Designer",
+    "core_vibe": "Psychological Safety meets Modern Tech. Soft, breathable, organic, but precise.",
+    "emotional_goals": ["Calm", "Trust", "Clarity", "Support"],
+    "anti_patterns": [
+      "No generic 'SaaS Blue' or 'Bootstrap' layouts.",
+      "No sharp edges (unless for data precision).",
+      "No pure black text on white backgrounds (too harsh).",
+      "No dense, cluttered dashboards. Space is luxury."
+    ]
+  },
+  "theme": {
+    "mode": "light",
+    "recommendation": "Primary Light Mode with 'Paper/Bone' textures. Dark mode should be 'Deep Aubergine' not 'Black'.",
+    "dark_mode_strategy": "class"
+  },
+  "typography": {
+    "font_family": {
+      "headings": "Manrope, sans-serif",
+      "body": "Public Sans, sans-serif",
+      "accent": "Fraunces, serif"
+    },
+    "scale": {
+      "h1": "text-4xl md:text-6xl font-bold tracking-tight",
+      "h2": "text-3xl md:text-5xl font-semibold tracking-tight",
+      "h3": "text-2xl md:text-3xl font-medium",
+      "body_large": "text-lg md:text-xl leading-relaxed",
+      "body_base": "text-base leading-relaxed",
+      "caption": "text-sm text-muted-foreground uppercase tracking-widest"
+    },
+    "imports": [
+      "@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;700;800&family=Public+Sans:wght@300;400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&display=swap');"
+    ]
+  },
+  "colors": {
+    "palette": {
+      "primary": {
+        "base": "#D8B4FE",
+        "hover": "#C084FC",
+        "active": "#A855F7",
+        "text_contrast": "#4C1D95"
+      },
+      "secondary": {
+        "base": "#F0FDFA",
+        "foreground": "#0F766E"
+      },
+      "background": {
+        "main": "#FAFAF9",
+        "card": "#FFFFFF",
+        "overlay": "rgba(255, 255, 255, 0.8)"
+      },
+      "text": {
+        "primary": "#2E1065",
+        "secondary": "#581C87",
+        "muted": "#7E22CE"
+      },
+      "functional": {
+        "success": "#34D399",
+        "warning": "#FBBF24",
+        "error": "#F43F5E",
+        "info": "#60A5FA"
+      }
+    },
+    "tailwind_config_extension": {
+      "colors": {
+        "lilac": {
+          "50": "#faf5ff",
+          "100": "#f3e8ff",
+          "200": "#e9d5ff",
+          "300": "#d8b4fe",
+          "400": "#c084fc",
+          "500": "#a855f7",
+          "600": "#9333ea",
+          "700": "#7e22ce",
+          "800": "#6b21a8",
+          "900": "#581c87"
+        },
+        "bone": {
+          "50": "#f9fafb",
+          "100": "#f3f4f6",
+          "200": "#e5e7eb",
+          "300": "#d1d5db",
+          "DEFAULT": "#fafaf9"
+        }
+      }
+    }
+  },
+  "visual_enhancers": {
+    "shadows": {
+      "soft": "0 4px 20px -2px rgba(216, 180, 254, 0.2)",
+      "medium": "0 10px 40px -10px rgba(168, 85, 247, 0.2)",
+      "glow": "0 0 20px rgba(192, 132, 252, 0.6)"
+    },
+    "borders": {
+      "radius": "rounded-2xl",
+      "style": "1px solid rgba(216, 180, 254, 0.3)"
+    },
+    "textures": {
+      "glass": "backdrop-filter: blur(16px); background: rgba(255, 255, 255, 0.7);",
+      "noise": "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E\")"
+    }
+  },
+  "layout_strategy": {
+    "dashboard": "Bento Grid (Mode A) - Asymmetric, breathable. Use 'col-span-2' for stats, 'col-span-4' for main charts.",
+    "interview_mode": "Focused Center. Remove sidebars. 60% width container. Calm background.",
+    "marketing": "Parallax Scroll. Large typography. Overlapping elements.",
+    "spacing": "Relaxed. Use 'p-8' or 'p-12' for containers. Don't crowd the content."
+  },
+  "components": {
+    "buttons": {
+      "primary": "rounded-full bg-lilac-500 text-white hover:bg-lilac-600 transition-all shadow-soft hover:shadow-glow px-8 py-3 font-semibold",
+      "secondary": "rounded-full bg-white text-lilac-700 border border-lilac-200 hover:bg-lilac-50 transition-all px-8 py-3 font-medium",
+      "ghost": "rounded-lg text-lilac-600 hover:bg-lilac-50 hover:text-lilac-800 transition-colors px-4 py-2"
+    },
+    "cards": {
+      "style": "bg-white/80 backdrop-blur-sm border border-lilac-100 rounded-3xl shadow-soft hover:shadow-medium transition-all duration-300",
+      "feature": "p-8 flex flex-col items-start gap-4 hover:-translate-y-1"
+    },
+    "inputs": {
+      "style": "rounded-xl border-lilac-200 bg-white/50 focus:ring-2 focus:ring-lilac-400 focus:border-transparent p-4 text-lg transition-all"
+    }
+  },
+  "assets": {
+    "icons_library": "lucide-react",
+    "images": [
+      {
+        "category": "hero_background",
+        "url": "https://images.pexels.com/photos/29708303/pexels-photo-29708303.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "description": "Abstract dynamic gradient background in shades of pink and purple",
+        "placement": "Landing Page Hero, Auth Backgrounds"
+      },
+      {
+        "category": "abstract_art",
+        "url": "https://images.pexels.com/photos/29586673/pexels-photo-29586673.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "description": "Vibrant 3D render of abstract pink and purple waves",
+        "placement": "Feature Cards, Empty States"
+      },
+      {
+        "category": "professional_people",
+        "url": "https://images.unsplash.com/photo-1770627000564-3feb36aecbcd?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMjd8MHwxfHNlYXJjaHw0fHxkaXZlcnNlJTIwY2FsbSUyMHByb2Zlc3Npb25hbCUyMG9mZmljZSUyMHBvcnRyYWl0c3xlbnwwfHx8fDE3NzE4NzcwMTZ8MA&ixlib=rb-4.1.0&q=85",
+        "description": "A woman in a pink blazer sits at her desk",
+        "placement": "HR Dashboard, Testimonials"
+      },
+      {
+        "category": "team_diversity",
+        "url": "https://images.pexels.com/photos/8124232/pexels-photo-8124232.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "description": "Diverse group of professionals holding folders",
+        "placement": "About Page, Team Section"
+      }
+    ]
+  },
+  "accessibility_rules": {
+    "contrast": "Ensure text is Deep Grape (#2E1065) on light backgrounds. Do not use pastel text on pastel backgrounds.",
+    "focus_states": "Visible Lilac-500 ring with 2px offset.",
+    "motion": "Respect prefers-reduced-motion."
+  },
+  "implementation_notes": {
+    "framework": "React.js + Tailwind CSS",
+    "charts": "Recharts (Customize colors to match palette: #A855F7, #34D399, #FBBF24)",
+    "animations": "Framer Motion (Use for page transitions and micro-interactions)",
+    "universal_guidelines": [
+      "Don't use generic centered layouts.",
+      "Create depth through layered design elements with z-index hierarchy.",
+      "Use glass-morphism effects with backdrop filters.",
+      "Every interaction needs micro-animations.",
+      "Use 2-3x more spacing than feels comfortable."
+    ]
+  }
+}
