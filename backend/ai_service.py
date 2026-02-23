@@ -9,27 +9,40 @@ API_KEY = os.environ.get("EMERGENT_LLM_KEY")
 class AIService:
     def __init__(self):
         self.api_key = API_KEY
+        if not self.api_key:
+            raise ValueError("EMERGENT_LLM_KEY environment variable is not set")
     
     async def generate_question(self, question_number: int, previous_questions: List[str] = None) -> str:
         """Generate a Computer Science interview question using GPT-4o"""
-        system_message = "You are an expert technical interviewer specializing in Computer Science. Generate challenging but fair interview questions covering topics like algorithms, data structures, system design, databases, and programming concepts."
-        
-        previous_context = ""
-        if previous_questions:
-            previous_context = f"\n\nPrevious questions asked: {', '.join(previous_questions)}\nMake sure this question is different and covers a new topic."
-        
-        chat = LlmChat(
-            api_key=self.api_key,
-            session_id=f"question_gen_{question_number}",
-            system_message=system_message
-        ).with_model("openai", "gpt-4o")
-        
-        prompt = f"Generate interview question #{question_number} for a Computer Science position. The question should be clear, specific, and test the candidate's technical knowledge or problem-solving ability.{previous_context}\n\nProvide ONLY the question text, nothing else."
-        
-        user_message = UserMessage(text=prompt)
-        response = await chat.send_message(user_message)
-        
-        return response.strip()
+        try:
+            system_message = "You are an expert technical interviewer specializing in Computer Science. Generate challenging but fair interview questions covering topics like algorithms, data structures, system design, databases, and programming concepts."
+            
+            previous_context = ""
+            if previous_questions:
+                previous_context = f"\n\nPrevious questions asked: {', '.join(previous_questions)}\nMake sure this question is different and covers a new topic."
+            
+            chat = LlmChat(
+                api_key=self.api_key,
+                session_id=f"question_gen_{question_number}",
+                system_message=system_message
+            ).with_model("openai", "gpt-4o")
+            
+            prompt = f"Generate interview question #{question_number} for a Computer Science position. The question should be clear, specific, and test the candidate's technical knowledge or problem-solving ability.{previous_context}\n\nProvide ONLY the question text, nothing else."
+            
+            user_message = UserMessage(text=prompt)
+            response = await chat.send_message(user_message)
+            
+            return response.strip()
+        except Exception as e:
+            # Fallback to a predefined question if AI fails
+            fallback_questions = [
+                "Explain the difference between a stack and a queue data structure. Provide examples of when you would use each.",
+                "What is the time complexity of binary search? Explain the algorithm step by step.",
+                "Describe how you would design a system to handle 1 million concurrent users.",
+                "Explain the concept of database indexing and its impact on query performance.",
+                "What are the differences between SQL and NoSQL databases? When would you choose one over the other?"
+            ]
+            return fallback_questions[(question_number - 1) % len(fallback_questions)]
     
     async def evaluate_answer(self, question: str, answer: str) -> Dict:
         """Evaluate an answer using AI for semantic analysis"""
